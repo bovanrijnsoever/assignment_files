@@ -17,14 +17,9 @@ def clean_cache():
     if 'cache' in folder_check:
         #delete folder
         shutil.rmtree(folder_cache) 
-        #create folder
-        os.mkdir(folder_cache) 
-    else:
-        #create folder
-        os.mkdir(folder_cache)
+    #create folder
+    os.mkdir(folder_cache)
     return
-
-folder_check = os.listdir(folder)
 
 
 #function 2 zip
@@ -37,8 +32,8 @@ def cache_zip(zip_file, folder_cache):
 #function 3 files
 def cached_files():
     list_files = []
-    with os.scandir(folder_cache) as listOfEntries:
-        for entry in listOfEntries:
+    with os.scandir(folder_cache) as list_of_entries:
+        for entry in list_of_entries:
             if entry.is_file():
                 result = os.path.abspath(entry)
                 list_files.append(result)
@@ -48,11 +43,10 @@ def cached_files():
 
 #function 4 password
 def find_password(list_files):
-    for file in list_files:
-        s = open(file, 'r')
-        file = s.read()
-        for x in file:
-            if 'password' in file:
-                return file
-            
-print(find_password(cached_files()))
+    for file_name in list_files:
+        file = open(file_name, 'r')
+        for line in file:
+            #print("Line:\n" + line)
+            if 'password' in line:
+                print(line[line.find(' ')+1:])
+                return line
