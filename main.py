@@ -46,7 +46,5 @@ def find_password(list_files):
     for file_name in list_files:
         file = open(file_name, 'r')
         for line in file:
-            #print("Line:\n" + line)
             if 'password' in line:
-                print(line[line.find(' ')+1:])
-                return line
+                return line[line.find(' ')+1:].rstrip()
